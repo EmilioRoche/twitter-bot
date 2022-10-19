@@ -1,4 +1,4 @@
-#!/Users/emilioroche/Desktop/PersonalProjects/twitter-age-bot/venv/bin/python3.10
+#!/Users/emilioroche/Desktop/PersonalProjects/twitter-bot/venv/bin/python3.10
 # -*- coding: utf-8 -*-
 import re
 import sys
