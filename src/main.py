@@ -4,7 +4,7 @@ from config import create_api_object
 logger = logging.getLogger()
 
 def tweet_fruit(api):
-    result = "banana has " + str(get_fruit("banana")) + " calories."
+    result = "apple has " + str(get_fruit("apple")) + " calories."
     api.update_status(result)
 
 def main():
