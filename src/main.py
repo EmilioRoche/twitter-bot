@@ -1,22 +1,17 @@
-import os
-import tweepy
+import logging
+from apiCall import get_fruit
+from config import create_api_object
+logger = logging.getLogger()
 
-from dotenv import load_dotenv
-load_dotenv()
+def tweet_fruit(api):
+    api.update_status(get_fruit("banana"))
 
-API_KEY = os.getenv('TWITTER_API_KEY')
-API_KEY_SECRET = os.getenv('TWITTER_API_KEY_SECRET')
-ACCESS_TOKEN = os.getenv('TWITTER_ACCESS_TOKEN')
-ACCESS_TOKEN_SECRET = os.getenv('TWITTER_ACCESS_TOKEN_SECRET')
+def main():
+    api = create_api_object()
+    while True:
+        tweet_fruit(api)
+        logger.info("Waiting for tweet...")
 
-#get_fruit("banana")
-# Authenticate to Twitter , will add it when I am able to create a new twitter account and get the api keys
-auth = tweepy.OAuthHandler(API_KEY, API_KEY_SECRET)
-auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
-api = tweepy.API(auth)
-try:
-    api.verify_credentials()
-    print("Authentication OK")
-except:
-    print("Error during authentication")
+if __name__ == "__main__":
+    main()
