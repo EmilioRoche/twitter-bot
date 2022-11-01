@@ -4,7 +4,9 @@ import tweepy
 from dotenv import load_dotenv
 load_dotenv()
 
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
+
 def create_api_object():
     API_KEY = os.getenv('TWITTER_API_KEY')
     API_KEY_SECRET = os.getenv('TWITTER_API_KEY_SECRET')
