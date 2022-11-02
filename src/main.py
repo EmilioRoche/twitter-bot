@@ -6,15 +6,16 @@ from searchFruits import search_fruits
 from config import create_api_object
 logger = logging.getLogger()
 # this will be what provides info for our tweet mentions
-def tweet_fruit(api):
-    result = "An apple has " + str(get_fruit("apple")) + " calories."
+def tweet_fruit(foundFruit):
+    fruit = foundFruit[0]
+    result = "The fruit, " + fruit + ", has " + str(get_fruit(fruit)) + " calories."
+    return result
     # api.update_status(result)
 def mentions(api, keywords, mention_id):
     logger.info("Retrieving mentions....")
     new_mention_id = mention_id
     # gets the tweets and looks for latest mention
     for tweet in tweepy.Cursor(api.mentions_timeline, since_id = mention_id).items():
-        logger.info(tweet.text)
         logger.info("A mention has been found!")
         # assigns our mention id as either the tweet id or the mention id
         new_mention_id = max(tweet.id, new_mention_id)
@@ -23,12 +24,12 @@ def mentions(api, keywords, mention_id):
             continue
         # we see if the tweet contains any of the keywords we have specified
         if any(keyword in tweet.text.lower() for keyword in keywords):
-            foundFruit = search_fruits(tweet.text)
-            logger.info(foundFruit)
+            foundFruit = search_fruits(tweet.text.lower())
+            #logger.info(foundFruit)
             if foundFruit is None:
                 logger.info("Sorry, we don't have data on that fruit.")
             else:
-                logger.info(f"Answering {tweet.user.name}")
+                logger.info(f"Answering {tweet.user.name}, " + tweet_fruit(foundFruit))
             # TODO: reply back with the response we need from tweet_fruit api (WRITE LOGIC)
     return new_mention_id
 
