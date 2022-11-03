@@ -8,7 +8,7 @@ logger = logging.getLogger()
 # this will be what provides info for our tweet mentions
 def tweet_fruit(foundFruit):
     fruit = foundFruit[0]
-    result = "The fruit, " + fruit + ", has " + str(get_fruit(fruit)) + " calories."
+    result = "@{} The fruit, " + fruit + ", has " + str(get_fruit(fruit)) + " calories."
     return result
     # api.update_status(result)
 def mentions(api, keywords, mention_id):
@@ -27,9 +27,14 @@ def mentions(api, keywords, mention_id):
             foundFruit = search_fruits(tweet.text.lower())
             #logger.info(foundFruit)
             if foundFruit is None:
-                logger.info("Sorry, we don't have data on that fruit.")
+                no_fruit_message = "fruit data found."
+                logger.info("No data on that fruit")
+                api.update_status(no_fruit_message.format(tweet.author.screen_name), in_reply_to_status_id = tweet.id)
             else:
-                logger.info(f"Answering {tweet.user.name}, " + tweet_fruit(foundFruit))
+                logger.info("Replying to user with fruit data")
+                fruit_message = tweet_fruit(foundFruit)
+                api.update_status(fruit_message.format(tweet.author.screen_name), in_reply_to_status_id = tweet.id)
+                logger.info("Replied successfully")
             # TODO: reply back with the response we need from tweet_fruit api (WRITE LOGIC)
     return new_mention_id
 
