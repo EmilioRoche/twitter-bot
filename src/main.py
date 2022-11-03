@@ -25,9 +25,9 @@ def mentions(api, keywords, mention_id):
         # we see if the tweet contains any of the keywords we have specified
         if any(keyword in tweet.text.lower() for keyword in keywords):
             foundFruit = search_fruits(tweet.text.lower())
-            #logger.info(foundFruit)
-            if foundFruit is None:
-                no_fruit_message = "fruit data found."
+            logger.info(foundFruit)
+            if foundFruit is False:
+                no_fruit_message = "@{} Sorry, no data on the fruit specified was found."
                 logger.info("No data on that fruit")
                 api.update_status(no_fruit_message.format(tweet.author.screen_name), in_reply_to_status_id = tweet.id)
             else:
@@ -50,7 +50,7 @@ def main():
         logger.info("Waiting for any tweets...")
         mention_id = mentions(api, keywords, mention_id)
         #add delay for searching
-        time.sleep(15)
+        time.sleep(30)
 
 
 if __name__ == "__main__":
