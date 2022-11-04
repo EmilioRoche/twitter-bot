@@ -50,7 +50,7 @@ def main():
         logger.info("Waiting for any tweets...")
         mention_id = mentions(api, keywords, mention_id)
         #add delay for searching
-        time.sleep(30)
+        time.sleep(75)
 
 
 if __name__ == "__main__":
