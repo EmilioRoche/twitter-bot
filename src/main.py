@@ -29,13 +29,18 @@ def mentions(api, keywords, mention_id):
             if foundFruit is False:
                 no_fruit_message = "@{} Sorry, no data on the fruit specified was found."
                 logger.info("No data on that fruit")
-                api.update_status(no_fruit_message.format(tweet.author.screen_name), in_reply_to_status_id = tweet.id)
+                try:
+                    api.update_status(no_fruit_message.format(tweet.author.screen_name), in_reply_to_status_id = tweet.id)
+                except Exception as exc:
+                    logger.info(exc)
             else:
                 logger.info("Replying to user with fruit data")
                 fruit_message = tweet_fruit(foundFruit)
-                api.update_status(fruit_message.format(tweet.author.screen_name), in_reply_to_status_id = tweet.id)
-                logger.info("Replied successfully")
-            # TODO: reply back with the response we need from tweet_fruit api (WRITE LOGIC)
+                try:
+                    api.update_status(fruit_message.format(tweet.author.screen_name), in_reply_to_status_id = tweet.id)
+                except Exception as exc:
+                    logger.info(exc)
+            logger.info("Replied successfully")
     return new_mention_id
 
 
