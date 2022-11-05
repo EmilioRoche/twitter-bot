@@ -2,7 +2,7 @@
 
 ## What?
 
-A twitter use can @fruta_bot asking about calories in a specific fruit, and the bot will auto reply with the correct response about the fruit and its calories. Keyword(s) is specified to "calories", and can filter out what fruit is mentioned in the tweet.
+A twitter user can @fruta_bot asking about calories in a specific fruit, and the bot will auto reply with the correct response about the fruit and its calories. Keyword(s) is specified to "calories", and can filter out what fruit is mentioned in the tweet.
 
 ## Why?
 
